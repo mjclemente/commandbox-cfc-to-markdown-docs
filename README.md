@@ -18,6 +18,12 @@ Once the module is installed, it uses the command: `markdowndoc` or the alias `m
 
 Running the command `markdowndoc path/to/your/file.cfc` reads/analyzes the component metadata for your `file.cfc` and uses this to generate a markdown documentation file. It ignores properties and private methods.
 
+The documentation is sourced from your javadoc style comments. In particular, `@hint` for the primary documentation, and `@doc` for a reference to external documentation. You can provide additional hints for your function arguments using `@arguementName` comments.
+
+### Example
+
+You can see an example of how this command can be used on the [`eversigncfc` repository](https://github.com/mjclemente/eversigncfc). From the root of that project, the following command was used to generate the documentation: `mdd path=eversign.cfc directory=docs/`
+
 ### A Note
 
 This command was built to solve a problem I repeatedly encountered when working on documentation for API wrappers. Which is to say, it's designed to meet my needs. I realize that, currently, the flow/output may not be a good fit for other projects. I am very open to revising/restructing/expanding the command to better meet the needs of other developers, if there is interest in using it.
