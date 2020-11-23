@@ -142,7 +142,7 @@ component aliases="mdd" {
     var docPath = "#destinationDirectory#/#destinationFileName#";
     // Create dir if it doesn't exist
     directoryCreate( getDirectoryFromPath( docPath ), true, true );
-    if( !force && fileExists( docPath ) ){
+    if( generateFile && !force && fileExists( docPath ) ){
       error( "A markdown file already exists here (#docPath#). Use the --force option if you wish to overwrite it." );
     }
 
@@ -151,9 +151,11 @@ component aliases="mdd" {
       include template="#layoutTemplatePath#";
     }
 
-    fileWrite( docPath, markdown );
-
-    print.greenLine( "Generated Documentation: #docPath#" ).toConsole();
+    if( generateFile ){
+      fileWrite( docPath, markdown );
+      print.greenLine( "Generated Documentation: #docPath#" ).toConsole();
+      return;
+    }
 
     return markdown;
   }
