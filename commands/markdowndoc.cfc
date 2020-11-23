@@ -136,12 +136,13 @@ component aliases="mdd" {
 
     // generate markdown file
     // directory
-    var destinationDirectory = directory.len() ? directory : getCWD();
+    var destinationDirectory = directory.len() ? resolvePath( directory ) : getCWD();
     var cfcFileName = getFileFromPath( resolvedPath );
     var destinationFileName = cfcFileName.rereplacenocase( '\.cfc$', '.md' );
     var docPath = "#destinationDirectory#/#destinationFileName#";
     // Create dir if it doesn't exist
-    directoryCreate( getDirectoryFromPath( docPath ), true, true );
+    print.line( "Confirming destination directory: #destinationDirectory#" );
+    directoryCreate( destinationDirectory, true, true );
     if( generateFile && !force && fileExists( docPath ) ){
       error( "A markdown file already exists here (#docPath#). Use the --force option if you wish to overwrite it." );
     }
