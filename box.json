@@ -1,34 +1,41 @@
 {
+  "name": "CommandBox CFC to Markdown Docs",
+  "version": "1.0.0",
   "author": "Matthew J. Clemente <mjclemente@gmail.com>",
-  "bugs": "",
+  "location": "mjclemente/commandbox-cfc-to-markdown-docs#v1.0.0",
+  "homepage": "https://github.com/mjclemente/commandbox-cfc-to-markdown-docs",
+  "repository": {
+    "type": "git",
+    "URL": "https://github.com/mjclemente/commandbox-cfc-to-markdown-docs"
+  },
+  "bugs": "https://github.com/mjclemente/commandbox-cfc-to-markdown-docs/issues",
+  "slug": "commandbox-cfc-to-markdown-docs",
+  "shortDescription": "Generate markdown documentation from your CFCs",
   "changelog": "",
   "contributors": [],
   "dependencies": {},
   "description": "",
   "devDependencies": {},
-  "documentation": "",
-  "homepage": "",
+  "documentation": "https://github.com/mjclemente/commandbox-cfc-to-markdown-docs/blob/main/README.md",
   "ignore": ["**/.*", "/test/", "/tests/"],
   "installPaths": {},
   "instructions": "",
-  "keywords": [],
+  "keywords": [
+    "template",
+    "command",
+    "commandbox",
+    "documentation",
+    "markdown"
+  ],
   "license": [
     {
-      "type": "",
-      "URL": ""
+      "type": "MIT",
+      "URL": "http://opensource.org/licenses/MIT"
     }
   ],
-  "location": "ForgeboxStorage",
-  "name": "CommandBox CFC to Markdown Docs",
   "private": false,
-  "projectURL": "",
-  "repository": {
-    "type": "",
-    "URL": ""
-  },
+  "projectURL": "https://github.com/mjclemente/commandbox-cfc-to-markdown-docs",
   "scripts": {},
-  "shortDescription": "Generate markdown documentation from your CFCs",
-  "slug": "commandbox-cfc-to-markdown-docs",
   "testbox": {
     "bundles": "",
     "directory": "tests.specs",
@@ -49,6 +56,5 @@
     "watchDelay": 500,
     "watchPaths": "**.cfc"
   },
-  "type": "commandbox-modules",
-  "version": "0.0.0"
+  "type": "commandbox-modules"
 }
