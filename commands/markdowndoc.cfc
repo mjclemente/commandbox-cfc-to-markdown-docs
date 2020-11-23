@@ -13,20 +13,20 @@ component aliases="mdd" {
   variables.templatePath = "/commandbox-cfc-to-markdown-docs/templates/";
 
   /**
-  * @path.hint Path to the CFC that you want to generate documentation for
-  * @generateFile.hint Generate a markdown file with the documentation (default true)
+  * @path.hint Path to the CFC that you want to generate documentation for (required)
   * @directory.hint Destination directory to in which to generate the markdown file (default CWD)
   * @force.hint Overwrite an existing markdown file if present (default false)
   * @template.hint Template that controls how the markdown docs for each function are displayed
   * @layout.hint Template that determines the layout of the markdown document
+  * @generateFile.hint Generate a markdown file with the documentation (default true).
   */
   function run(
     required string path,
-    boolean generateFile = true,
     string directory = '',
     boolean force = false,
     string template = 'default',
-    string layout = 'default'
+    string layout = 'default',
+    boolean generateFile = true,
   ){
     if( path.listlast( '.' ) != 'cfc' ){
       error( "You can only run this command on CFCs." );
