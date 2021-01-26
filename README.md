@@ -52,6 +52,10 @@ Template that controls how the markdown docs for each function are displayed.
 
 Template that determines the layout of the markdown document.
 
+#### `methodOrder`
+
+Determines the order that functions are displayed in the generated output. The options are `positional` or `alphabetical`. The default is `positional`, which orders functions in the same order they appear in the CFC.
+
 #### `generateFile`
 
 Generate a markdown file with the documentation (default true). If false, the generated markdown is output to the terminal.
