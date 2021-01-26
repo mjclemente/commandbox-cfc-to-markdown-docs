@@ -1,4 +1,3 @@
-<cfoutput>
-## `#cfcFileName#` Reference
+<cfoutput>## `#cfcFileName#` Reference
 #body#
 </cfoutput>
