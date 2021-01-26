@@ -18,6 +18,8 @@ component aliases="mdd" {
   * @force.hint Overwrite an existing markdown file if present (default false)
   * @template.hint Template that controls how the markdown docs for each function are displayed
   * @layout.hint Template that determines the layout of the markdown document
+  * @methodOrder.hint Determines the order that functions are displayed in the generated output (default positional)
+  * @methodOrder.options positional,alphabetical
   * @generateFile.hint Generate a markdown file with the documentation (default true).
   */
   function run(
@@ -26,7 +28,8 @@ component aliases="mdd" {
     boolean force = false,
     string template = 'default',
     string layout = 'default',
-    boolean generateFile = true,
+    string methodOrder = 'positional',
+    boolean generateFile = true
   ){
     if( path.listlast( '.' ) != 'cfc' ){
       error( "You can only run this command on CFCs." );
@@ -49,6 +52,7 @@ component aliases="mdd" {
 
     var cfcPath = resolvedPath.left( resolvedPath.len() - 4 );
     var metadata = getComponentMetadata( cfcPath );
+
     var properties = [];
     var functions = [];
 
@@ -61,6 +65,8 @@ component aliases="mdd" {
         }, []
       );
     }
+
+
 
     // Get our function list, by filtering out unwanted methods
     if( metadata.keyExists( 'functions' ) ){
@@ -83,6 +89,26 @@ component aliases="mdd" {
           }
 
           return true;
+        }
+      );
+    }
+
+    if( methodOrder == 'positional' ){
+      functions.sort(
+        (e1, e2 ) => {
+          if( e1.position.start < e2.position.start ){
+            return -1;
+          } else if( e1.position.start > e2.position.start ){
+            return 1;
+          } else {
+            return 0
+          }
+        }
+      );
+    } else {
+      functions.sort(
+        (e1, e2 ) => {
+          return compare( e1.name, e2.name );
         }
       );
     }
