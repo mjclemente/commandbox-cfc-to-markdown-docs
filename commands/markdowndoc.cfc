@@ -51,6 +51,7 @@ component aliases="mdd" {
     }
 
     var cfcPath = resolvedPath.left( resolvedPath.len() - 4 );
+    InspectTemplates();
     var metadata = getComponentMetadata( cfcPath );
 
     var properties = [];
