@@ -1,8 +1,8 @@
 {
   "name": "CommandBox CFC to Markdown Docs",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Matthew J. Clemente <mjclemente@gmail.com>",
-  "location": "mjclemente/commandbox-cfc-to-markdown-docs#v2.0.0",
+  "location": "mjclemente/commandbox-cfc-to-markdown-docs#v2.0.1",
   "homepage": "https://github.com/mjclemente/commandbox-cfc-to-markdown-docs",
   "repository": {
     "type": "git",
