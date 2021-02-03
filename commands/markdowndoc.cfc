@@ -144,7 +144,7 @@ component aliases="mdd" {
 
         var paramHints = f.parameters.reduce(
           function( result, item, index ){
-            if( item.keyExists( 'hint' ) ){
+            if( item.keyExists( 'hint' ) && item.hint.trim().len() ){
               result &= 'The parameter `#item.name#` #item.hint##item.hint.right(1) != "." ? "." : ""# ';
             }
             return result;
