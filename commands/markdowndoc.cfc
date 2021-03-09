@@ -116,6 +116,18 @@ component aliases="mdd" {
       );
     }
 
+    // directory
+    var destinationDirectory = directory.len() ? resolvePath( directory ) : getCWD();
+    var cfcFileName = getFileFromPath( resolvedPath );
+    var destinationFileName = cfcFileName.rereplacenocase( '\.cfc$', '.md' );
+    var docPath = "#destinationDirectory#/#destinationFileName#";
+    // Create dir if it doesn't exist
+    print.line( "Confirming destination directory: #destinationDirectory#" );
+    directoryCreate( destinationDirectory, true, true );
+    if( generateFile && !force && fileExists( docPath ) ){
+      error( "A markdown file already exists here (#docPath#). Use the --force option if you wish to overwrite it." );
+    }
+
     var body = functions.reduce(
       ( result, f, index ) => {
         // This is generating the params, whether they're required, and their defaults
@@ -164,17 +176,6 @@ component aliases="mdd" {
     // end of function loop
 
     // generate markdown file
-    // directory
-    var destinationDirectory = directory.len() ? resolvePath( directory ) : getCWD();
-    var cfcFileName = getFileFromPath( resolvedPath );
-    var destinationFileName = cfcFileName.rereplacenocase( '\.cfc$', '.md' );
-    var docPath = "#destinationDirectory#/#destinationFileName#";
-    // Create dir if it doesn't exist
-    print.line( "Confirming destination directory: #destinationDirectory#" );
-    directoryCreate( destinationDirectory, true, true );
-    if( generateFile && !force && fileExists( docPath ) ){
-      error( "A markdown file already exists here (#docPath#). Use the --force option if you wish to overwrite it." );
-    }
 
     var markdown = '';
     savecontent variable="markdown" {
