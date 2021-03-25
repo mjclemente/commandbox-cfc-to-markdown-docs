@@ -121,11 +121,28 @@ component aliases="mdd" {
     var cfcFileName = getFileFromPath( resolvedPath );
     var destinationFileName = cfcFileName.rereplacenocase( '\.cfc$', '.md' );
     var docPath = "#destinationDirectory#/#destinationFileName#";
-    // Create dir if it doesn't exist
-    print.line( "Confirming destination directory: #destinationDirectory#" );
-    directoryCreate( destinationDirectory, true, true );
-    if( generateFile && !force && fileExists( docPath ) ){
-      error( "A markdown file already exists here (#docPath#). Use the --force option if you wish to overwrite it." );
+    var docExists = fileExists( docPath );
+    if( generateFile ){
+      // Create dir if it doesn't exist
+      print.line( "Confirming destination directory: #destinationDirectory#" );
+      directoryCreate( destinationDirectory, true, true );
+      if( !force && docExists ){
+        error( "A markdown file already exists here (#docPath#). Use the --force flag if you wish to overwrite it." );
+      }
+    }
+    var mergeDocContent = '';
+    var doMerge = attemptMerge && docExists;
+    if( doMerge ){
+      mergeDocContent = fileRead(docPath);
+      // determine if the document actually has any of the functions in it
+      var mergeFunctionFound = functions.reduce(
+        (result, f, index ) => {
+          if( !result ){
+            result = mergeDocContent.reFindNoCase(_mergeRE(f.name));
+          }
+          return result;
+        }, false
+      )
     }
 
     var body = functions.reduce(
@@ -168,18 +185,63 @@ component aliases="mdd" {
         savecontent variable="functionMarkdown" {
           include template="#functionTemplatePath#";
         }
-        result &= functionMarkdown;
+
+        if( doMerge && mergeFunctionFound ){
+          var mergeRegex = _mergeRE( f.name );
+          if( result.reFindNoCase( mergeRegex ) ){
+            // print.line( "Found function #f.name#. Replacing with updated documentation." );
+            result = result.rereplacenocase( mergeRegex, functionMarkdown );
+          } else {
+            // the function is being added
+
+            // unless this is the first function in our list, the function before it should have been added to the result. Just place it after that function
+            if( index != 1 ){
+
+              var priorFunction = result.reFindNoCase(_mergeRE(functions[index-1].name),1,true);
+              var insertPosition = priorFunction.pos[1] + priorFunction.len[1];
+              result = result.insert( newLine() & functionMarkdown.rereplacenocase('\n$',''), insertPosition );
+
+            } else {
+              // this is the first function, so we need to find the next function that's present in the document and add it before that
+
+              var functionIndex = 2;
+              while( functionIndex <= functions.len() ){
+                var nextFunction = result.reFindNoCase(_mergeRE(functions[functionIndex].name),1,true);
+                if( nextFunction.match.len() ){
+                  var insertPosition = nextFunction.pos[1] - 1;
+                  result = result.insert( functionMarkdown, insertPosition );
+                  break;
+                }
+                functionIndex++;
+              }
+
+            }
+
+          }
+
+        } else {
+          result &= functionMarkdown & newLine();
+        }
 
         return result;
-      }, ''
+      }, mergeDocContent
     );
     // end of function loop
 
     // generate markdown file
-
     var markdown = '';
-    savecontent variable="markdown" {
-      include template="#layoutTemplatePath#";
+    // don't use the full layout if we're attempting a merge
+    if( doMerge ){
+      markdown = body;
+    } else {
+      savecontent variable="markdown" {
+        include template="#layoutTemplatePath#";
+      }
+    }
+
+    // clean it up
+    while( markdown.reFind( _newlineRE() ) ) {
+      markdown = markdown.rereplace( _newlineRE(), newLine() );
     }
 
     if( generateFile ){
