@@ -21,7 +21,7 @@ component aliases="mdd" {
   * @methodOrder.hint Determines the order that functions are displayed in the generated output (default positional)
   * @methodOrder.options positional,alphabetical
   * @generateFile.hint Generate a markdown file with the documentation (default true).
-  * @attemptMerge.hint Attempts to merge CFC function documentation into an existing generated markdown documentation file. Only applied if `force` is `true`. Use with caution and inspect resulting file. (default false)
+  * @attemptMerge.hint Attempt to merge the generated CFC function documentation into the existing documentation file. Use with caution and inspect resulting file. (default false)
   */
   function run(
     required string path,
