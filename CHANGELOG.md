@@ -4,12 +4,18 @@ I will attempt to document all notable changes to this project in this file. The
 
 ## [Unreleased]
 
+## [2.5.0] - 2021-03-24
+
+### Added
+
+- Parameter `attemptMerge` which attempts to merge the generated CFC function documentation into the existing documentation file. Use with caution and inspect resulting file.
+
 ## [2.0.0] - 2021-01-26
 
 ### Added
 
 - A changelog
-- Parameters `methodOrder` which determines the order in which the functions are output
+- Parameter `methodOrder` which determines the order in which the functions are output
 
 ### Changed
 
