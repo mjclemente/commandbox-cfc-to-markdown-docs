@@ -60,6 +60,10 @@ Determines the order that functions are displayed in the generated output. The o
 
 Generate a markdown file with the documentation (default true). If false, the generated markdown is output to the terminal.
 
+#### `attemptMerge`
+
+Attempt to merge the generated CFC function documentation into the existing documentation file. Use with caution and inspect resulting file. (default false)
+
 ___
 
 ### A Note on CommandBox for New Developers
