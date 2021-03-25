@@ -190,4 +190,12 @@ component aliases="mdd" {
 
     return markdown;
   }
+
+  private string function _mergeRE( required string name ){
+    return "(?:##{0,6}| |\*\*?) ?`#name#\((?:[^\)]*)\)`(?:\*\*?)?[\s]{0,2}(?:[^##\n\r]*)";
+  }
+
+  private string function _newlineRE() {
+    return '(?m)^(?:\s){2,}';
+  }
 }
