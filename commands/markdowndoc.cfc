@@ -263,4 +263,48 @@ component aliases="mdd" {
   private string function _newlineRE() {
     return '(?m)^(?:\s){2,}';
   }
+
+  /**
+   * Reads a file.
+   *
+   * @param file      The filename to read.
+   * @param from      The line number specifying where to begin reading.
+   * @param to      The line number specifying where to stop reading.
+   * @param NL      Character to use for newlines. Defaults to Chr(13)Chr(10)
+   * @return Returns a string.
+   * @original Raymond Camden (https://cflib.org/udf/FileRead)
+   */
+  private string function fileReadLines( required string filepath, required numeric start, required numeric end ) {
+
+    if( !fileExists(filepath) ){
+      return "";
+    }
+
+    var fileLines = '';
+    var fileObject = fileOpen(filepath);
+    var done = false;
+    var lineNumber = 0;
+
+    try {
+      while( !done ) {
+        lineNumber++;
+        var line = fileReadLine(fileObject);
+        if( lineNumber >= start ){
+          fileLines &= line;
+          if( lineNumber < end ){
+            fileLines &= newLine();
+          }
+        }
+        if( lineNumber == end ){
+          done = true;
+        }
+      }
+    } catch( any e ) {
+        rethrow;
+    } finally {
+        fileClose( fileObject );
+    }
+
+    return fileLines;
+  }
 }
