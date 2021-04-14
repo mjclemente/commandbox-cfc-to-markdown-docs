@@ -69,8 +69,6 @@ component aliases="mdd" {
       );
     }
 
-
-
     // Get our function list, by filtering out unwanted methods
     if( metadata.keyExists( 'functions' ) ){
       functions = metadata.functions.filter(
@@ -165,11 +163,11 @@ component aliases="mdd" {
               } else if( item.default == '[runtime expression]' && item.type == 'array' ) {
                 var functionBody = fileReadLines(resolvedPath,f.position.start, f.position.end);
                 var defaultValue = reMatchNoCase('#item.name# ?= ?\[[^\]]*?\]',functionBody);
-                print.line(defaultValue);
+                param &= '=#defaultValue[1].listLast('=').trim()#';
               } else if( item.default == '[runtime expression]' && item.type == 'struct' ) {
                 var functionBody = fileReadLines(resolvedPath,f.position.start, f.position.end);
                 var defaultValue = reMatchNoCase('#item.name# ?= ?{[^}]*?}',functionBody);
-                print.line(defaultValue);
+                param &= '=#defaultValue[1].listLast('=').trim()#';
               }
               else {
                 param &= '="#item.default#"';
