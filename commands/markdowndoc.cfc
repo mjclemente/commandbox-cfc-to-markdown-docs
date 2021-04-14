@@ -153,14 +153,17 @@ component aliases="mdd" {
             var param = '';
             if( item.required ){
               param &= 'required';
+              param &= ' #item.type#';
+              param &= ' #item.name#';
+            } else {
+              param &= '#item.type#';
+              param &= '#param.len() ? ' ' : ''##item.name#';
             }
-            param &= ' #item.type#';
-            param &= ' #item.name#';
             if( item.keyExists('default') ){
               if( isBoolean( item.default ) || isNumeric( item.default ) ){
-                param &= '=#item.default# ';
+                param &= '=#item.default#';
               } else {
-                param &= '="#item.default#" ';
+                param &= '="#item.default#"';
               }
 
             }
