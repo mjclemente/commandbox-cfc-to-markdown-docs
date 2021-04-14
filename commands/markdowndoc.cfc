@@ -162,7 +162,16 @@ component aliases="mdd" {
             if( item.keyExists('default') ){
               if( isBoolean( item.default ) || isNumeric( item.default ) ){
                 param &= '=#item.default#';
-              } else {
+              } else if( item.default == '[runtime expression]' && item.type == 'array' ) {
+                var functionBody = fileReadLines(resolvedPath,f.position.start, f.position.end);
+                var defaultValue = reMatchNoCase('#item.name# ?= ?\[[^\]]*?\]',functionBody);
+                print.line(defaultValue);
+              } else if( item.default == '[runtime expression]' && item.type == 'struct' ) {
+                var functionBody = fileReadLines(resolvedPath,f.position.start, f.position.end);
+                var defaultValue = reMatchNoCase('#item.name# ?= ?{[^}]*?}',functionBody);
+                print.line(defaultValue);
+              }
+              else {
                 param &= '="#item.default#"';
               }
 
