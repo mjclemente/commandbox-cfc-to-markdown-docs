@@ -4,6 +4,12 @@ I will attempt to document all notable changes to this project in this file. The
 
 ## [Unreleased]
 
+## [2.5.3] - 2022-01-05
+
+### Fixed
+
+- Proper output of newlines when attempting merges of function docs
+
 ## [2.5.2] - 2022-01-05
 
 ### Fixed
