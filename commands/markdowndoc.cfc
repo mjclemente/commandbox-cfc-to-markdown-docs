@@ -272,16 +272,15 @@ component aliases="mdd" {
   }
 
   /**
-   * Reads a file.
-   *
-   * @param file      The filename to read.
-   * @param from      The line number specifying where to begin reading.
-   * @param to      The line number specifying where to stop reading.
-   * @param NL      Character to use for newlines. Defaults to Chr(13)Chr(10)
-   * @return Returns a string.
-   * @original Raymond Camden (https://cflib.org/udf/FileRead)
-   */
-  private string function fileReadLines( required string filepath, required numeric start, required numeric end ) {
+  *
+  * Based on a UDF by Raymond Camden (https://cflib.org/udf/FileRead)
+  *
+  * @hint Read a range of lines from a file
+  * @filepath path to the file being read
+  * @start number of the first line to read
+  * @end number of the last line to read
+  */
+  public string function fileReadLines( required string filepath, required numeric start, required numeric end ) {
 
     if( !fileExists(filepath) ){
       return "";
@@ -299,7 +298,7 @@ component aliases="mdd" {
         if( lineNumber >= start ){
           fileLines &= line;
           if( lineNumber < end ){
-            fileLines &= newLine();
+            fileLines &= Chr(13) & Chr(10);
           }
         }
         if( lineNumber == end ){
