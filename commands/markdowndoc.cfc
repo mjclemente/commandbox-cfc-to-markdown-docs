@@ -209,7 +209,7 @@ component aliases="mdd" {
 
               var priorFunction = result.reFindNoCase(_mergeRE(functions[index-1].name),1,true);
               var insertPosition = priorFunction.pos[1] + priorFunction.len[1];
-              result = result.insert( newLine() & functionMarkdown.rereplacenocase('\n$',''), insertPosition );
+              result = result.insert( newLine() & functionMarkdown.rereplacenocase('\n$','') & newline(), insertPosition );
 
             } else {
               // this is the first function, so we need to find the next function that's present in the document and add it before that
