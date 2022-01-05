@@ -4,6 +4,12 @@ I will attempt to document all notable changes to this project in this file. The
 
 ## [Unreleased]
 
+## [2.5.2] - 2022-01-05
+
+### Fixed
+
+- Better parsing of default values for arrays and structs
+
 ## [2.5.0] - 2021-03-24
 
 ### Added
